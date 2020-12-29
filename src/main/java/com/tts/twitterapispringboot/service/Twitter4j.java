@@ -1,6 +1,9 @@
 package com.tts.twitterapispringboot.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -62,6 +65,31 @@ public static List<String> getTimeLineByUsername(String userName) throws Twitter
                     item.getText() ).collect(
 					Collectors.toList());
 }
+
+
+public static Map<String, String> getTimeLineByUsername2Map(String userName) throws TwitterException {
+
+	 // The factory instance is re-useable and thread safe.
+   Twitter twitter = TwitterFactory.getSingleton();
+   User user = twitter.verifyCredentials();
+	
+//	Twitter twitter = getTwitterinstance();
+	Map<String, String> tMap = new HashMap<String, String>();
+	List<Status> statuses = twitter.getUserTimeline(userName);
+	long tIdx = 0;
+	String tStr = null;
+	
+	for(int i=0; i < statuses.size() ; i++) {
+		Status status = (Status)statuses.get(i);
+		
+		tIdx = status.getId();
+		tStr = "@" + status.getUser().getScreenName() + " - " + status.getText();
+		tMap.put(String.valueOf(tIdx), tStr);
+	}
+	
+	return tMap;
+}
+
 
 public static String createTweet(String tweet) throws TwitterException {
 	Twitter twitter = getTwitterinstance();

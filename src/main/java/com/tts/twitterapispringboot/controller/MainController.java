@@ -1,6 +1,7 @@
 package com.tts.twitterapispringboot.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,13 +29,13 @@ public class MainController {
 //	public String main(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
 	public String main(Model model) throws TwitterException {
 		
-		List<String> tweets1 = Twitter4j.getTimeLineByUsername("@ChicagoBears");
+		Map<String, String> tweets1 = Twitter4j.getTimeLineByUsername2Map("@ChicagoBears");
 		model.addAttribute("tweets1", tweets1);
 
-		List<String> tweets2 = Twitter4j.getTimeLineByUsername("@Cubs");
+		Map<String, String> tweets2 = Twitter4j.getTimeLineByUsername2Map("@Cubs");
 		model.addAttribute("tweets2", tweets2);
 
-		List<String> tweets3 = Twitter4j.getTimeLineByUsername("@NHLBlackhawks");
+		Map<String, String> tweets3 = Twitter4j.getTimeLineByUsername2Map("@NHLBlackhawks");
 		model.addAttribute("tweets3", tweets3);
 	        
 		return "index";		   		
