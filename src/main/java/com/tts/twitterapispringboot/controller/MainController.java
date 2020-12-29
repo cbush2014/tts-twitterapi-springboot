@@ -37,7 +37,10 @@ public class MainController {
 
 		Map<String, String> tweets3 = Twitter4j.getTimeLineByUsername2Map("@NHLBlackhawks");
 		model.addAttribute("tweets3", tweets3);
-	        
+
+		List<String> myFollowers = Twitter4j.getListofFollowerNames("@cbush13");
+		model.addAttribute("followers", myFollowers);
+
 		return "index";		   		
 		
 	}

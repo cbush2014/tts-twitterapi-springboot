@@ -1,5 +1,6 @@
 package com.tts.twitterapispringboot.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,7 +8,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
-
+import twitter4j.IDs;
 import twitter4j.DirectMessage;
 import twitter4j.Query;
 import twitter4j.QueryResult;
@@ -88,6 +89,34 @@ public static Map<String, String> getTimeLineByUsername2Map(String userName) thr
 	}
 	
 	return tMap;
+}
+
+
+// get friend followers
+//https://bugsdb.com/_en/debug/3e9d849e4337da4b396bdf112fc4d491		
+public static List<String> getListofFollowerNames(String userName) throws TwitterException {
+	
+	 // The factory instance is re-useable and thread safe.
+    Twitter twitter = TwitterFactory.getSingleton();
+    twitter.verifyCredentials();
+    
+    long cursor = -1;
+    IDs ids;
+    
+    ArrayList<String> followerList = new ArrayList<>();
+    
+    do {
+        ids = twitter.getFollowersIDs(userName, cursor);
+        for (long id : ids.getIDs()) {
+           // System.out.println(id);
+            User user1 = twitter.showUser(id);
+           // System.out.println(user1.getName());
+            followerList.add(user1.getName());
+        }
+    } while ((cursor = ids.getNextCursor()) != 0);
+	
+    return followerList;
+	
 }
 
 

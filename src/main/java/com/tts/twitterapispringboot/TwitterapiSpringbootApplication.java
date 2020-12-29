@@ -47,11 +47,11 @@ public class TwitterapiSpringbootApplication implements CommandLineRunner {
 //		try {
 		
 		 // The factory instance is re-useable and thread safe.
-	    Twitter twitter = TwitterFactory.getSingleton();
-	    User user = twitter.verifyCredentials();
+	   // Twitter twitter = TwitterFactory.getSingleton();
+	   // User user = twitter.verifyCredentials();
 	    
 //		twitter.verifyCredentials();
-		twitter.friendsFollowers();
+		//twitter.friendsFollowers();
 
 	    //send a direct message
 //	    String myMsg = "Dig that, a Direct Message from Stopher";
